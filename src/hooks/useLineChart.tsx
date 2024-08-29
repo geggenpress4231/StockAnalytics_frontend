@@ -10,9 +10,9 @@ interface StockData {
 const useLineChart = (data: StockData[], selector: string) => {
     useEffect(() => {
         if (data.length > 0) {
-            const margin = { top: 5, right: 5, bottom: 40, left: 30 }; // Reduced the margins
-            const width = 640 - margin.left - margin.right; // Adjusted width
-            const height = 360 - margin.top - margin.bottom; // Adjusted height
+            const margin = { top: 5, right: 5, bottom: 40, left: 30 }; 
+            const width = 640 - margin.left - margin.right; 
+            const height = 360 - margin.top - margin.bottom; 
 
             d3.select(selector).selectAll("*").remove();
 
@@ -43,7 +43,7 @@ const useLineChart = (data: StockData[], selector: string) => {
                 .x(d => x(d.timestamp))
                 .y(d => y(d.close_price));
 
-            // Draw the open and close lines
+          
             svg.append("path")
                 .datum(data)
                 .attr("class", "line-open")

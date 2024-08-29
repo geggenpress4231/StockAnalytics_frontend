@@ -1,10 +1,10 @@
 import React from 'react';
 import LineChart from './components/LineChart/LineChart';
+import './App.css'; // Import the CSS file
 
 const App: React.FC = () => {
     return (
-        <div>
-        
+        <div className="app-container">
             <LineChart />
         </div>
     );
