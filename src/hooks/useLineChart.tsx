@@ -43,7 +43,7 @@ const useLineChart = (data: StockData[], selector: string) => {
                 .x(d => x(d.timestamp))
                 .y(d => y(d.close_price));
 
-          
+            // Draw the open and close lines
             svg.append("path")
                 .datum(data)
                 .attr("class", "line-open")
