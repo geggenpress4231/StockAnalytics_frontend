@@ -1,0 +1,35 @@
+.chart-container {
+  position: absolute;
+  top: 0; /* Align the container with the top of the screen */
+  left: 10px; /* Align the container with the left of the screen */
+  width: 640px; /* Adjust the width to better fit the graph content */
+  height: 360px; /* Adjust the height to better fit the graph content */
+  margin: 20px; /* Optional: Add margin to give some space from the screen edges */
+  z-index: 1000; 
+  border-radius: 10px;/* Ensure it's above other elements */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+  
+  &:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+  }
+
+  .MuiCard-root {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px; /* Optional: rounded corners for the card */
+    overflow: hidden; /* Ensures content doesn't spill out */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow by default */
+  }
+
+  .MuiCardContent-root {
+    padding: 0; /* Remove padding inside the CardContent */
+    height: 100%; /* Make sure the content takes full height */
+    width: 100%; /* Make sure the content takes full width */
+  }
+
+  .chart {
+    height: 100%; /* Ensure the chart takes full height */
+    width: 100%; /* Ensure the chart takes full width */
+  }
+}
