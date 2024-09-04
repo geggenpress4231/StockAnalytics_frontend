@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+:root {
+  --primary-background: linear-gradient(135deg, #89cff0, #c8f0e1);
+  --card-radius: 8px;
+  --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Create a 2-column layout */
+  grid-gap: 20px; /* Space between cards */
+  padding-left:5px;
+  padding-top: 10px;
+  height: 100vh;
+  background: var(--primary-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+  .app-container {
+    grid-template-columns: 1fr; /* Single column for smaller screens */
+    grid-gap: 10px; /* Adjust the gap for smaller screens */
+  }
+}

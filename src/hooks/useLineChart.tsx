@@ -12,7 +12,7 @@ const useLineChart = (data: StockData[], selector: string) => {
         if (data.length > 0) {
             const margin = { top: 5, right: 5, bottom: 40, left: 30 }; 
             const width = 640 - margin.left - margin.right; 
-            const height = 360 - margin.top - margin.bottom; 
+            const height = 320 - margin.top - margin.bottom; 
 
             d3.select(selector).selectAll("*").remove();
 
@@ -130,23 +130,28 @@ const useLineChart = (data: StockData[], selector: string) => {
             }
 
             // Add a range slider to the top right corner with an initial value of 1
+            // Append the slider inside the card container where the chart is rendered
             d3.select(selector)
-                .append("input")
-                .attr("type", "range")
-                .attr("min", "1")
-                .attr("max", "10")
-                .attr("step", "0.1")
-                .attr("value", "1") // Set initial value to 1 for no zoom
-                .style("position", "absolute")
-                .style("right", "10px") // Align to top right corner
-                .style("top", "10px")
-                .on("input", function() {
-                    const scale = +this.value;
-                    const transform = d3.zoomIdentity.scale(scale);
-                    if (svgElement) {
-                        d3.select(svgElement).call(zoom.transform as any, transform);
-                    }
-                });
+            .append("input")
+            .attr("type", "range")
+            .attr("min", "1")
+            .attr("max", "10")
+            .attr("step", "0.1")
+            .attr("value", "1")
+            .attr("class", "chart-slider") // Add class for slider
+            .style("position", "absolute")
+            .style("right", "10px") // Align to top-right corner
+            .style("top", "10px")
+            .on("input", function () {
+                const scale = +this.value;
+                const transform = d3.zoomIdentity.scale(scale);
+                if (svgElement) {
+                    d3.select(svgElement).call(zoom.transform as any, transform);
+                }
+            });
+        
+
+        
 
             // Add a legend to the top left corner
             const legend = svg.append("g")
