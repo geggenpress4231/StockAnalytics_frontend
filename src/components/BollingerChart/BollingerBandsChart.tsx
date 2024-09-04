@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, CardContent } from '@mui/material';
-import useFetchMovingAverages from '../../hooks/useFetchMovingAverages';
-import useFetchBollingerBands from '../../hooks/useFetchBollingerBands';
-import useBollingerBandsChart from '../../hooks/useBollingerBandsChart';
+import useFetchMovingAverages from '../../hooks/visualisation/useFetchMovingAverages';
+import useFetchBollingerBands from '../../hooks/visualisation/useFetchBollingerBands';
+import useBollingerBandsChart from '../../hooks/data/useBollingerBandsChart';
 import './BollingerBandsChart.scss';
 
 const BollingerBandsChart: React.FC = () => {

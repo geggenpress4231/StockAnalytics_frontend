@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@mui/material';
-import useFetchStockData from '../../hooks/useFetchStockData'; 
-import useLineChart from '../../hooks/useLineChart'; 
+import useFetchStockData from '../../hooks/visualisation/useFetchStockData'; 
+import useLineChart from '../../hooks/data/useLineChart'; 
 import './LineChart.scss';
 
 const LineChart: React.FC = () => {
