@@ -19,7 +19,7 @@ const useFetchStockData = (symbol: string, startDate: string, endDate: string) =
                 
                 const parsedData = fetchedData.map((d: any) => {
                     const parsedDate = new Date(d.timestamp as unknown as string);
-                    parsedDate.setSeconds(0, 0); // Round to the nearest minute, ignoring seconds and milliseconds
+                    parsedDate.setSeconds(0, 0); 
                     return {
                         ...d,
                         timestamp: parsedDate,
