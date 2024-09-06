@@ -20,19 +20,42 @@ html, body {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Create a 2-column layout */
   grid-gap: 20px; /* Space between cards */
-  padding-left:5px;
-  padding-top: 10px;
+  padding-left: 5px;
+  padding-top: 100px;
   height: 100vh;
   background: var(--primary-background);
   background-size: cover;
   background-repeat: no-repeat;
   width: 100vw;
+  outline: none;
+}
+
+.app-container:focus {
+  outline: 3px solid #005fcc; /* Focus indicator for keyboard navigation */
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 /* Responsive layout for smaller screens */
 @media (max-width: 1024px) {
   .app-container {
-    grid-template-columns: 1fr; /* Single column for smaller screens */
+    grid-template-columns: 1fr; /* Switch to single column layout */
     grid-gap: 10px; /* Adjust the gap for smaller screens */
+    padding-top: 20px; /* Reduce top padding on smaller screens */
+    height: auto; /* Let the container height adjust automatically */
   }
+}
+
+/* Ensure focus outline is visible */
+:focus {
+  outline: 2px dashed #333;
 }

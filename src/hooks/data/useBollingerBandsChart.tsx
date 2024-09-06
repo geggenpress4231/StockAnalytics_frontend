@@ -83,9 +83,8 @@ const useBollingerBandsChart = (data: BollingerData[], selector: string) => {
 
             svg.append("g").call(d3.axisLeft(y).ticks(5));
 
-            // Tooltip initialization (create only once)
-            const tooltip = d3.select("body").selectAll(".tooltip").data([null])
-                .enter()
+            // Tooltip initialization
+            const tooltip = d3.select("body")
                 .append("div")
                 .attr("class", "tooltip")
                 .style("position", "absolute")

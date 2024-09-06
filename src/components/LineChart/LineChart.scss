@@ -1,5 +1,48 @@
 /* linechart.scss */
 .linechart-container {
-  width: 640px; /* Set fixed width */
-  height: 320px; /* Set fixed height */
+  width: 100%;  /* Make it responsive */
+  max-width: 640px;  /* Set max-width to preserve the original size */
+  height: 320px;
+  position: relative;
+  outline: none;  /* Remove default outline */
+
+  /* Ensure the chart has appropriate contrast */
+  background-color: white;  /* Light background for high contrast */
+  border-radius: 8px;  /* Rounded corners for visual appeal */
+  box-shadow: var(--shadow-default);  /* Use default shadow for depth */
+  overflow: hidden;  /* Prevent any overflow of the content */
+}
+
+.linechart-container:focus {
+  outline: 3px solid #005fcc;  /* Visible focus outline for keyboard users */
+}
+
+.chart {
+  height: 100%;
+  width: 100%;
+  outline: none;
+}
+
+.chart:focus {
+  outline: 3px solid #005fcc;  /* Ensure the chart itself has focus visibility */
+}
+
+/* Tooltip accessibility improvements */
+.tooltip {
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  padding: 5px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+  .linechart-container {
+    max-width: 100%;  /* Ensure responsiveness */
+    height: auto;  /* Allow height to adjust for different screen sizes */
+    min-height: 200px;  /* Set a reasonable minimum height for small screens */
+  }
 }

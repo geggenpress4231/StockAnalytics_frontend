@@ -69,3 +69,15 @@
     pointer-events: all;
   }
 }
+
+.tooltip {
+  font-size: 12px;
+  color: black;
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+}

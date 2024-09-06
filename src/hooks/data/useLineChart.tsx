@@ -7,16 +7,17 @@ interface StockData {
     close_price: number;
 }
 
-const useLineChart = (data: StockData[], selector: string) => {
+const useLineChart = (data: StockData[], chartContainer: HTMLDivElement | null) => {
     useEffect(() => {
-        if (data.length > 0) {
+        if (data.length > 0 && chartContainer) {  // Ensure the chartContainer is defined
             const margin = { top: 5, right: 5, bottom: 40, left: 30 }; 
             const width = 640 - margin.left - margin.right; 
             const height = 320 - margin.top - margin.bottom; 
 
-            d3.select(selector).selectAll("*").remove();
+            // Clear the container before rendering
+            d3.select(chartContainer).selectAll("*").remove(); // Use chartContainer directly
 
-            const svg = d3.select<SVGSVGElement, unknown>(selector)
+            const svg = d3.select(chartContainer)
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -67,6 +68,7 @@ const useLineChart = (data: StockData[], selector: string) => {
             const yAxis = svg.append("g")
                 .call(d3.axisLeft(y).ticks(5));
 
+            // Tooltip for displaying details on hover
             const tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
                 .style("position", "absolute")
@@ -129,29 +131,25 @@ const useLineChart = (data: StockData[], selector: string) => {
                 d3.select(svgElement).call(zoom).on("wheel.zoom", null); // Disable zoom on mouse wheel
             }
 
-            // Add a range slider to the top right corner with an initial value of 1
-            // Append the slider inside the card container where the chart is rendered
-            d3.select(selector)
-            .append("input")
-            .attr("type", "range")
-            .attr("min", "1")
-            .attr("max", "10")
-            .attr("step", "0.1")
-            .attr("value", "1")
-            .attr("class", "chart-slider") // Add class for slider
-            .style("position", "absolute")
-            .style("right", "10px") // Align to top-right corner
-            .style("top", "10px")
-            .on("input", function () {
-                const scale = +this.value;
-                const transform = d3.zoomIdentity.scale(scale);
-                if (svgElement) {
-                    d3.select(svgElement).call(zoom.transform as any, transform);
-                }
-            });
-        
-
-        
+            // Add the slider for zoom control
+            d3.select(chartContainer) // Appending slider inside the chart container
+                .append("input")
+                .attr("type", "range")
+                .attr("min", "1")
+                .attr("max", "10")
+                .attr("step", "0.1")
+                .attr("value", "1")
+                .attr("class", "chart-slider") // Add class for slider
+                .style("position", "absolute")
+                .style("right", "10px") // Align to top-right corner
+                .style("top", "10px")
+                .on("input", function () {
+                    const scale = +this.value;
+                    const transform = d3.zoomIdentity.scale(scale);
+                    if (svgElement) {
+                        d3.select(svgElement).call(zoom.transform as any, transform);
+                    }
+                });
 
             // Add a legend to the top left corner
             const legend = svg.append("g")
@@ -188,7 +186,7 @@ const useLineChart = (data: StockData[], selector: string) => {
                 .style("font-size", "12px")
                 .text("Close Price");
         }
-    }, [data, selector]);
+    }, [data, chartContainer]); // Include chartContainer as a dependency
 };
 
 export default useLineChart;
