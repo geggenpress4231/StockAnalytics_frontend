@@ -166,7 +166,7 @@ const useBollingerBandsChart = (data: BollingerData[], selector: string) => {
                     }
                 });
 
-            // Legend (aligned properly)
+            // Legend 
             const legend = svg.append("g").attr("class", "legend").attr("transform", "translate(10,10)");
 
             // Bollinger Bands

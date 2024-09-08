@@ -1,5 +1,61 @@
+@import '../../shared-style.scss';  
+
 /* bollingerchart.scss */
 .bollinger-chart-container {
-  width: 640px; /* Set fixed width */
-  height: 320px; /* Set fixed height */
+  @include chart-container-styles();  /* Use the shared chart container mixin */
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
+
+    .chart-slider {
+      opacity: 1;
+      visibility: visible; /* Make sure the slider becomes visible */
+      pointer-events: all; /* Enable pointer events when visible */
+    }
+  }
+
+  .MuiCard-root {
+    @include full-size-container;  /* Use shared full-size container mixin */
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-default);
+  }
+
+  .MuiCardContent-root {
+    @include full-size-container;  /* Use shared full-size container mixin */
+    padding: 0;
+  }
+
+  .chart {
+    @include full-size-container;  /* Use shared full-size container mixin */
+  }
+
+  .chart-slider {
+    opacity: 0;
+    visibility: hidden; /* Hide the slider initially */
+    pointer-events: none; /* Disable pointer events */
+    
+    /* Transition for opacity and visibility */
+    @include transition(opacity, 0.3s ease);
+    @include transition(visibility, 0s 0.3s);  
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .bollinger-chart-container {
+    @include responsive-chart-container();  /* Use shared responsive mixin */
+  }
+
+  /* For smaller screens, show the slider on tap/click */
+  .bollinger-chart-container .chart-slider {
+    display: none; /* Hide the slider by default */
+  }
+
+  .bollinger-chart-container:active .chart-slider {
+    display: block; /* Show the slider when the chart is tapped */
+    opacity: 1;
+    pointer-events: all;
+  }
 }

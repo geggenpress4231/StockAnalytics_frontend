@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Card, CardContent } from '@mui/material';
 import useFetchStockData from '../../hooks/visualisation/useFetchStockData'; 
-import useLineChart from '../../hooks/data/useLineChart'; 
+import { drawLineChart } from '../../hooks/data/useLineChart';  
 import './LineChart.scss';
 
 const LineChart: React.FC = () => {
@@ -10,8 +10,12 @@ const LineChart: React.FC = () => {
     // Create a ref for the chart container
     const chartRef = useRef<HTMLDivElement>(null); // Ref to the chart div
 
-    // Pass the ref's current value (the actual DOM element) to the useLineChart hook
-    useLineChart(data, chartRef.current);
+    // Use effect to handle chart rendering when data is available
+    useEffect(() => {
+        if (chartRef.current && data.length > 0) {
+            drawLineChart(data, chartRef.current);  // Call the chart drawing function
+        }
+    }, [data]);  
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;

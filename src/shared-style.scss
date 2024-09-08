@@ -1,83 +1,108 @@
-.chart-container, .bollinger-chart-container {
-  width: 640px;
-  height: 320px;
-  margin: 20px;
+/* Mixin for chart container default styles */
+@mixin chart-container-styles($width: 640px, $height: 320px, $margin: 20px) {
+  width: $width;
+  height: $height;
+  margin: $margin;
   z-index: 1000;
   border-radius: var(--card-radius);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  @include transition(transform, 0.3s ease);
+  @include transition(box-shadow, 0.3s ease);
 }
 
-.chart-container:hover, .bollinger-chart-container:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-hover);
-}
-
-.chart-container .MuiCard-root, 
-.bollinger-chart-container .MuiCard-root {
-  height: 100%;
+/* Mixin for responsive container styles */
+@mixin responsive-chart-container() {
   width: 100%;
-  border-radius: var(--card-radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-default);
+  height: auto;
+  margin: 10px 0;
 }
 
-.chart-container .MuiCardContent-root,
-.bollinger-chart-container .MuiCardContent-root {
-  padding: 0;
-  height: 100%;
-  width: 100%;
+/* Mixin for transition effects */
+@mixin transition($property, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
 }
 
-.chart-container .chart, 
-.bollinger-chart-container .chart {
+/* Mixin for full-size container */
+@mixin full-size-container {
   height: 100%;
   width: 100%;
 }
 
-/* Hide the slider by default */
+/* Mixin for tooltip styles */
+@mixin tooltip-styles($padding: 5px, $font-size: 12px, $background-color: white, $border-color: #ccc) {
+  font-size: $font-size;
+  color: black;
+  position: absolute;
+  background-color: $background-color;
+  padding: $padding;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Applying the mixins to the styles */
+.chart-container {
+  @include chart-container-styles();
+  
+  .MuiCard-root {
+    @include full-size-container;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-default);
+  }
+
+  .MuiCardContent-root {
+    @include full-size-container;
+    padding: 0;
+  }
+
+  .chart {
+    @include full-size-container;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
+
+    .chart-slider {
+      opacity: 1;
+      visibility: visible; /* Ensure visibility */
+      pointer-events: all; /* Enable pointer events */
+    }
+  }
+}
+
 .chart-slider {
   opacity: 0;
-  transition: opacity 0.3s ease;
+  visibility: hidden; /* Initially hidden */
   pointer-events: none; /* Disable pointer events */
-}
-
-/* Show the slider on hover for desktop/larger screens */
-.chart-container:hover .chart-slider,
-.bollinger-chart-container:hover .chart-slider {
-  opacity: 1;
-  pointer-events: all; /* Enable pointer events when visible */
+  
+  /* Transition for opacity */
+  @include transition(opacity, 0.3s ease);
+  
+  /* Transition for visibility, delayed until the opacity transition ends */
+  @include transition(visibility, 0s 0.3s);
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .chart-container, .bollinger-chart-container {
-    width: 100%; /* Make charts take full width on smaller screens */
-    height: auto; /* Let height adjust automatically */
-    margin: 10px 0;
+  .chart-container {
+    @include responsive-chart-container();
   }
 
   /* For smaller screens, show the slider on tap/click */
-  .chart-container .chart-slider, 
-  .bollinger-chart-container .chart-slider {
-    display: none; /* Hide the slider by default */
+  .chart-container .chart-slider {
+    display: none;
   }
 
-  .chart-container:active .chart-slider, 
-  .bollinger-chart-container:active .chart-slider {
-    display: block; /* Show the slider when the chart is tapped */
+  .chart-container:active .chart-slider {
+    display: block;
     opacity: 1;
     pointer-events: all;
   }
 }
 
+/* Applying the tooltip mixin */
 .tooltip {
-  font-size: 12px;
-  color: black;
-  position: absolute;
-  background-color: white;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  pointer-events: none;
-  opacity: 0;
+  @include tooltip-styles();
 }
