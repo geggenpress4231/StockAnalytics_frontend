@@ -186,7 +186,7 @@ const useLineChart = (data: StockData[], chartContainer: HTMLDivElement | null) 
                 .style("font-size", "12px")
                 .text("Close Price");
         }
-    }, [data, chartContainer]); // Include chartContainer as a dependency
+    }, [data, chartContainer]); 
 };
 
 export default useLineChart;
